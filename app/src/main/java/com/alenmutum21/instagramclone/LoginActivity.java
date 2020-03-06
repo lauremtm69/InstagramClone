@@ -63,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void initfield() {
-
+        getSupportActionBar().setTitle("Login page");
         noAccount = findViewById(R.id.noAccount);
         login = findViewById(R.id.login);
         emailLogin = findViewById(R.id.emailLogin);

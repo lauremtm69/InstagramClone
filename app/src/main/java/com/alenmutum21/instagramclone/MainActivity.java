@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         ParseInstallation.getCurrentInstallation().saveInBackground();
 
-        getSupportActionBar().setTitle("Sign up Screen");
+        getSupportActionBar().setTitle("SignUp Page");
 
         initFields();
 
