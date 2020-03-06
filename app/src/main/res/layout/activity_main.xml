@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:onClick="rootLayouttapped"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -25,8 +26,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="email"
-            android:textSize="24sp"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:textSize="24sp" />
 
         <EditText
             android:id="@+id/usernameSignup"
@@ -34,8 +35,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="username"
-            android:textSize="24sp"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:textSize="24sp" />
 
         <EditText
             android:id="@+id/pwdsignUp"
@@ -43,19 +44,19 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="password"
-            android:textSize="24sp"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textSize="24sp" />
 
         <Button
             android:id="@+id/signUp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:text="Signup"
-            android:textColor="#fff"
-            android:textSize="18sp"
             android:layout_marginTop="30dp"
-            android:textAllCaps="false"/>
+            android:background="@drawable/gradbtn"
+            android:text="Signup"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:textSize="18sp" />
     </LinearLayout>
 
     <TextView
@@ -66,7 +67,7 @@
         android:padding="10dp"
         android:text="Or if you already have an account"
         android:textAlignment="center"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/blue"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
