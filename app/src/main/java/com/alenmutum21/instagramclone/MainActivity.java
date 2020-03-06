@@ -93,6 +93,8 @@ public class MainActivity extends AppCompatActivity {
                     if (e == null) {
                         loadingSignUp.setVisibility(View.GONE);
                         FancyToast.makeText(MainActivity.this, "SignUp succesful for user " + ParseUser.getCurrentUser().getUsername(), FancyToast.LENGTH_LONG, FancyToast.SUCCESS, false).show();
+                        sendUserToSocialMediaActivity();
+                        finish();
 
 
                     } else {
@@ -125,5 +127,10 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+    }
+
+    public void sendUserToSocialMediaActivity(){
+        Intent SocialMediaActivityIntent = new Intent(MainActivity.this,SocialMediaActivity.class);
+        startActivity(SocialMediaActivityIntent);
     }
 }

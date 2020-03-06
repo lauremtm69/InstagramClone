@@ -79,6 +79,8 @@ public class LoginActivity extends AppCompatActivity {
                 public void done(ParseUser user, ParseException e) {
                     if (user != null && e == null) {
                         FancyToast.makeText(LoginActivity.this, "login succesful for user " + ParseUser.getCurrentUser().getUsername(), FancyToast.LENGTH_LONG, FancyToast.SUCCESS, false).show();
+                        sendUserToSocialMediaActivity();
+                        finish();
                         loginprogress.setVisibility(View.GONE);
                     } else {
                         FancyToast.makeText(LoginActivity.this, "error " + e.getMessage(), FancyToast.LENGTH_LONG, FancyToast.ERROR, false).show();
@@ -107,5 +109,10 @@ public class LoginActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+    }
+
+    public void sendUserToSocialMediaActivity(){
+        Intent SocialMediaActivityIntent = new Intent(LoginActivity.this,SocialMediaActivity.class);
+        startActivity(SocialMediaActivityIntent);
     }
 }
