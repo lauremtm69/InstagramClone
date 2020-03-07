@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -23,6 +24,7 @@ public class ProfileTab extends Fragment {
 
     private EditText profileName,profileBio,profession,hobbies,sport;
     private Button update;
+    private ProgressBar loading;
 
     public ProfileTab() {
         // Required empty public constructor
@@ -41,6 +43,7 @@ public class ProfileTab extends Fragment {
         hobbies = view.findViewById(R.id.hobbies);
         sport = view.findViewById(R.id.sport);
         update = view.findViewById(R.id.update);
+        loading = view.findViewById(R.id.loading);
 
         final ParseUser parseUser = ParseUser.getCurrentUser();
 
@@ -71,6 +74,7 @@ public class ProfileTab extends Fragment {
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                loading.setVisibility(View.VISIBLE);
                 parseUser.put("profileName", profileName.getText().toString());
                 parseUser.put("profileBio", profileBio.getText().toString());
                 parseUser.put("profession", profession.getText().toString());
@@ -82,9 +86,11 @@ public class ProfileTab extends Fragment {
                     public void done(ParseException e) {
                         if (e == null) {
                             FancyToast.makeText(getContext(), "profile updated succesfully ", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, false).show();
+                            loading.setVisibility(View.GONE);
 
                         } else {
                                 FancyToast.makeText(getContext(), "error " + e.getMessage(), FancyToast.LENGTH_LONG, FancyToast.ERROR, false).show();
+                                loading.setVisibility(View.GONE);
                         }
                     }
                 });

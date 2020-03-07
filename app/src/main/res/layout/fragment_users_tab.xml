@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UsersTab">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ListView
+        android:id="@+id/listView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-
-</FrameLayout>
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@drawable/editinput"
+        android:padding="10dp"
+        android:visibility="gone"/>
+    <TextView
+        android:id="@+id/waitingText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="please wait while we load the users"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:layout_centerInParent="true"
+        android:textStyle="bold"
+        android:textColor="#fff"
+        android:background="@drawable/gradsocial"/>
+</RelativeLayout>
