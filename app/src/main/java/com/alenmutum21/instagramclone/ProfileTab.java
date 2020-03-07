@@ -33,7 +33,7 @@ public class ProfileTab extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_profile_tab, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile_tab, container, false);
 
         profileName = view.findViewById(R.id.profileName);
         profileBio = view.findViewById(R.id.profileBio);
@@ -45,58 +45,46 @@ public class ProfileTab extends Fragment {
         final ParseUser parseUser = ParseUser.getCurrentUser();
 
 
-
-        if (parseUser.get("profileName") == null){
+        if (parseUser.get("profileName") == null || parseUser.get("profileBio") == null || parseUser.get("profession") == null ||
+                parseUser.get("hobbies") == null || parseUser.get("sport") == null) {
             profileName.setText("");
-        }else {
-            profileName.setText(parseUser.get("profileName").toString());
-        }
-        if (parseUser.get("profileBio") == null){
             profileBio.setText("");
-        }else {
-            profileBio.setText(parseUser.get("profileBio").toString());
-        }
-        if (parseUser.get("profession") == null){
             profession.setText("");
-        }else {
-            profession.setText(parseUser.get("profession").toString());
-        }
-        if (parseUser.get("hobbies") == null){
             hobbies.setText("");
-        }else {
-            hobbies.setText(parseUser.get("hobbies").toString());
-        }
-        if (parseUser.get("sport") == null){
             sport.setText("");
-        }else {
+        } else {
+            profileName.setText(parseUser.get("profileName").toString());
+            profileBio.setText(parseUser.get("profileBio").toString());
+            profession.setText(parseUser.get("profession").toString());
+            hobbies.setText(parseUser.get("hobbies").toString());
             sport.setText(parseUser.get("sport").toString());
         }
 
+
         if (profileName.getText().toString().equals("") || profileBio.getText().toString().equals("") ||
                 profession.getText().toString().equals("") || hobbies.getText().toString().equals("")
-                || sport.getText().toString().equals("")){
+                || sport.getText().toString().equals("")) {
             FancyToast.makeText(getContext(), "please update all your profile fields", FancyToast.LENGTH_LONG, FancyToast.INFO, false).show();
         }
-
 
 
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                parseUser.put("profileName",profileName.getText().toString());
-                parseUser.put("profileBio",profileBio.getText().toString());
-                parseUser.put("profession",profession.getText().toString());
-                parseUser.put("hobbies",hobbies.getText().toString());
-                parseUser.put("sport",sport.getText().toString());
+                parseUser.put("profileName", profileName.getText().toString());
+                parseUser.put("profileBio", profileBio.getText().toString());
+                parseUser.put("profession", profession.getText().toString());
+                parseUser.put("hobbies", hobbies.getText().toString());
+                parseUser.put("sport", sport.getText().toString());
 
                 parseUser.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
-                        if (e == null){
+                        if (e == null) {
                             FancyToast.makeText(getContext(), "profile updated succesfully ", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, false).show();
 
-                        }else {
-                            FancyToast.makeText(getContext(), "error "+ e.getMessage(), FancyToast.LENGTH_LONG, FancyToast.ERROR, false).show();
+                        } else {
+                                FancyToast.makeText(getContext(), "error " + e.getMessage(), FancyToast.LENGTH_LONG, FancyToast.ERROR, false).show();
                         }
                     }
                 });
@@ -105,4 +93,5 @@ public class ProfileTab extends Fragment {
 
         return view;
     }
+
 }
