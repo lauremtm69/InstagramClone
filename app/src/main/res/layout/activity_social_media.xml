@@ -9,30 +9,41 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ProgressBar
+            android:id="@+id/loadingRotat"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="invisible" />
+
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
 
-            <include android:id="@+id/myToolbar"
-                layout="@layout/my_toolbar"/>
+            <include
+                android:id="@+id/myToolbar"
+                layout="@layout/my_toolbar" />
 
             <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/tabLayout"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                android:background="@color/colorPrimaryDark"/>
+                android:background="@color/colorPrimaryDark"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
 
         <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/viewPager"
-            android:layout_below="@id/appbar"/>
+            android:layout_below="@id/appbar">
+
+        </androidx.viewpager.widget.ViewPager>
 
 
     </RelativeLayout>
