@@ -34,17 +34,6 @@
             android:id="@+id/viewPager"
             android:layout_below="@id/appbar"/>
 
-        <Button
-            android:id="@+id/logout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="664dp"
-            android:text="logout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_alignParentBottom="true"/>
 
     </RelativeLayout>
 
