@@ -5,6 +5,12 @@
         android:id="@+id/logou"
         android:title="logout"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/postImageItem"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        android:title="Post Image"
+        android:icon="@drawable/camerawhite_24dp"/>
     <item android:id="@+id/quit"
         android:title="quit"
         app:showAsAction="never"/>

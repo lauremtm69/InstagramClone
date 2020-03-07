@@ -78,6 +78,9 @@ public class SocialMediaActivity extends AppCompatActivity {
             case R.id.quit:
                 finish();
                 break;
+
+            case R.id.postImageItem:
+                break;
         }
 
         return true;
