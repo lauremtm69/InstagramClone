@@ -42,7 +42,6 @@ public class SocialMediaActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private tabAdapter adapter;
-    private Bitmap recievedImage;
     private ProgressBar loadingRotat;
 
     @Override
@@ -103,7 +102,9 @@ public class SocialMediaActivity extends AppCompatActivity {
 
             case R.id.postImageItem:
 
-                if (Build.VERSION.SDK_INT >= 23 && ActivityCompat.checkSelfPermission(SocialMediaActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                if (Build.VERSION.SDK_INT >= 23 &&
+                        ActivityCompat.checkSelfPermission(SocialMediaActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
 
                     requestPermissions(new String[]{
                             Manifest.permission.READ_EXTERNAL_STORAGE
