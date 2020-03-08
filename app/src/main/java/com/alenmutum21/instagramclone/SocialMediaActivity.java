@@ -113,6 +113,9 @@ public class SocialMediaActivity extends AppCompatActivity {
                     captureImage();
                 }
                 break;
+
+            case R.id.timeline:
+                startActivity(new Intent(SocialMediaActivity.this,TImelineActivity.class));
         }
 
         return true;

@@ -1,12 +1,13 @@
 package com.alenmutum21.instagramclone;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.MediaStore;
+
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -21,33 +22,41 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.List;
 
-public class UsersPostsActivity extends AppCompatActivity {
 
-    private ProgressBar loadingPosts;
-    private LinearLayout linearLayout;
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class AllPosts extends Fragment {
+    private String recievedUsername;
+    private ProgressBar loadingAll;
+    private LinearLayout allTimeline;
+
+    public AllPosts() {
+        // Required empty public constructor
+    }
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_users_posts);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view =  inflater.inflate(R.layout.fragment_all_posts, container, false);
 
-        loadingPosts = findViewById(R.id.loadingPosts);
-        linearLayout = findViewById(R.id.linearLayout);
+        recievedUsername = ParseUser.getCurrentUser().getUsername();
+        loadingAll = view.findViewById(R.id.loadingAll);
+        allTimeline = view.findViewById(R.id.allLinearlayout);
 
-        final String recievedUsername = getIntent().getExtras().get("username").toString();
 
-
-        setTitle(recievedUsername + "'s Posts");
 
         ParseQuery<ParseObject> parseQuery = new ParseQuery<ParseObject>("Photo");
-        parseQuery.whereEqualTo("username",recievedUsername);
         parseQuery.orderByDescending("createdAt");
 
-        loadingPosts.setVisibility(View.VISIBLE);
+        loadingAll.setVisibility(View.VISIBLE);
 
         parseQuery.findInBackground(new FindCallback<ParseObject>() {
             @Override
@@ -57,12 +66,15 @@ public class UsersPostsActivity extends AppCompatActivity {
 
                     for (final ParseObject post : objects){
 
-                        final TextView postDesc = new TextView(UsersPostsActivity.this);
+                        final TextView postDesc = new TextView(getContext());
                         if (post.get("image_desc") == null){
                             postDesc.setText("");
                         }else {
                             postDesc.setText(post.get("image_desc") + "");
                         }
+                        final TextView username = new TextView(getContext());
+                        username.setText(post.get("username").toString() + ":");
+
 
                         ParseFile postImg = (ParseFile) post.get("picture");
                         postImg.getDataInBackground(new GetDataCallback() {
@@ -71,9 +83,9 @@ public class UsersPostsActivity extends AppCompatActivity {
                                 if (data != null && e == null){
 
                                     Bitmap bitmap = BitmapFactory.decodeByteArray(data,0,data.length);
-                                    ImageView postImageView = new ImageView(UsersPostsActivity.this);
+                                    ImageView postImageView = new ImageView(getContext());
                                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,500);
-                                    params .setMargins(5,10,5,0);
+                                    params .setMargins(5,0,5,0);
                                     postImageView.setLayoutParams(params);
                                     postImageView.setBackgroundResource(R.drawable.gradinputs);
                                     postImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -88,20 +100,31 @@ public class UsersPostsActivity extends AppCompatActivity {
                                     postDesc.setTextColor(Color.BLACK);
                                     postDesc.setTextSize(20f);
 
-                                    linearLayout.addView(postImageView);
-                                    linearLayout.addView(postDesc);
+                                    LinearLayout.LayoutParams paramsUser = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                                    paramsUser.setMargins(5,10,5,0);
+                                    username.setLayoutParams(paramsUser);
+                                    username.setBackgroundResource(R.drawable.gradinputs);
+                                    username.setTextColor(Color.GRAY);
+                                    username.setTextSize(20f);
+
+                                    allTimeline.addView(username);
+                                    allTimeline.addView(postImageView);
+                                    allTimeline.addView(postDesc);
 
                                 }
-                                loadingPosts.setVisibility(View.GONE);
+                                loadingAll.setVisibility(View.GONE);
                             }
                         });
                     }
 
                 }else {
-                    FancyToast.makeText(UsersPostsActivity.this,recievedUsername + " has no posts yet", Toast.LENGTH_LONG,FancyToast.INFO,false).show();
-                    finish();
+                    FancyToast.makeText(getContext(), "you has no posts yet", Toast.LENGTH_LONG,FancyToast.INFO,false).show();
+
                 }
             }
         });
+
+
+        return view;
     }
 }

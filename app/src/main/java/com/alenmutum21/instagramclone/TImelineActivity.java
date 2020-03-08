@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -21,33 +20,33 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.List;
 
-public class UsersPostsActivity extends AppCompatActivity {
-
-    private ProgressBar loadingPosts;
-    private LinearLayout linearLayout;
+public class TImelineActivity extends AppCompatActivity {
+    private String recievedUsername;
+    private ProgressBar loadingTimeline;
+    private LinearLayout linTimeline;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_users_posts);
+        setContentView(R.layout.activity_t_imeline);
 
-        loadingPosts = findViewById(R.id.loadingPosts);
-        linearLayout = findViewById(R.id.linearLayout);
-
-        final String recievedUsername = getIntent().getExtras().get("username").toString();
-
-
+        recievedUsername = ParseUser.getCurrentUser().getUsername();
         setTitle(recievedUsername + "'s Posts");
+        loadingTimeline = findViewById(R.id.loadingTimeline);
+        linTimeline = findViewById(R.id.linTimeline);
+
+
 
         ParseQuery<ParseObject> parseQuery = new ParseQuery<ParseObject>("Photo");
         parseQuery.whereEqualTo("username",recievedUsername);
         parseQuery.orderByDescending("createdAt");
 
-        loadingPosts.setVisibility(View.VISIBLE);
+        loadingTimeline.setVisibility(View.VISIBLE);
 
         parseQuery.findInBackground(new FindCallback<ParseObject>() {
             @Override
@@ -57,7 +56,7 @@ public class UsersPostsActivity extends AppCompatActivity {
 
                     for (final ParseObject post : objects){
 
-                        final TextView postDesc = new TextView(UsersPostsActivity.this);
+                        final TextView postDesc = new TextView(TImelineActivity.this);
                         if (post.get("image_desc") == null){
                             postDesc.setText("");
                         }else {
@@ -71,7 +70,7 @@ public class UsersPostsActivity extends AppCompatActivity {
                                 if (data != null && e == null){
 
                                     Bitmap bitmap = BitmapFactory.decodeByteArray(data,0,data.length);
-                                    ImageView postImageView = new ImageView(UsersPostsActivity.this);
+                                    ImageView postImageView = new ImageView(TImelineActivity.this);
                                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,500);
                                     params .setMargins(5,10,5,0);
                                     postImageView.setLayoutParams(params);
@@ -88,17 +87,17 @@ public class UsersPostsActivity extends AppCompatActivity {
                                     postDesc.setTextColor(Color.BLACK);
                                     postDesc.setTextSize(20f);
 
-                                    linearLayout.addView(postImageView);
-                                    linearLayout.addView(postDesc);
+                                    linTimeline.addView(postImageView);
+                                    linTimeline.addView(postDesc);
 
                                 }
-                                loadingPosts.setVisibility(View.GONE);
+                                loadingTimeline.setVisibility(View.GONE);
                             }
                         });
                     }
 
                 }else {
-                    FancyToast.makeText(UsersPostsActivity.this,recievedUsername + " has no posts yet", Toast.LENGTH_LONG,FancyToast.INFO,false).show();
+                    FancyToast.makeText(TImelineActivity.this, "you has no posts yet", Toast.LENGTH_LONG,FancyToast.INFO,false).show();
                     finish();
                 }
             }

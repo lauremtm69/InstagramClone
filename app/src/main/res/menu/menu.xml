@@ -14,5 +14,10 @@
     <item android:id="@+id/quit"
         android:title="quit"
         app:showAsAction="never"/>
+    <item
+        android:id="@+id/timeline"
+        android:title="Timeline"
+        app:showAsAction="always"
+        android:icon="@drawable/timeline_24dp"/>
 
 </menu>
